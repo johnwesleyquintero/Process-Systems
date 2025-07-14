@@ -1,0 +1,4 @@
+sku,standard_price,minimum_seller_allowed_price,maximum_seller_allowed_price,start_date,end_date,currency,product_tax_code,fulfillment_latency,quantity,leadtime_to_ship,item_condition,item_note,will_ship_internationally,expedited_shipping,standard_plus,item_package_quantity,offering_release_date,update_delete
+SKU001,12.5,,,2025-07-15,2025-07-31,USD,,,,,,,,,,,,Update
+SKU002,22.0,,,2025-07-15,2025-08-15,USD,,,,,,,,,,,,Update
+SKU003,6.0,,,2025-07-16,2025-07-20,USD,,,,,,,,,,,,Update

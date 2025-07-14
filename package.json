@@ -1,0 +1,20 @@
+{
+  "name": "amazon-flatfile-automator",
+  "version": "1.0.0",
+  "description": "Automate Amazon flatfile tasks.",
+  "scripts": {
+    "run:price-update": "python src/price_update.py",
+    "run:listing-creation": "python src/listing_creation.py",
+    "validate:template": "python src/template_validator.py --template price_update",
+    "start": "echo 'Choose a script: npm run run:price-update, npm run run:listing-creation, etc.'"
+  },
+  "keywords": [
+    "amazon",
+    "flatfile",
+    "automation",
+    "python",
+    "npm"
+  ],
+  "author": "John Wesley Quintero",
+  "license": "MIT"
+}

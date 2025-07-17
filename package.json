@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "description": "Automate Amazon flatfile tasks.",
   "scripts": {
-    "run:price-update": "python src/price_update.py",
-    "recommend:restock": "python src/restock_recommender.py",
-    "run:listing-creation": "python src/listing_creation.py",
-    "validate:template": "python src/template_validator.py --template price_update",
-    "start": "echo 'Choose a script: npm run run:price-update, npm run recommend:restock, npm run run:listing-creation, etc.'"
+    "run:price-update": "python src/price_update.py --brand SL",
+    "recommend:restock": "python src/restock_recommender.py --brand SL",
+    "generate:promotions": "python src/generate_promotional_suggestions.py --brand SL",
+    "run:listing-creation": "python src/listing_creation.py --brand SL",
+    "validate:template": "python src/template_validator.py --template price_update --brand SL",
+    "analyze:data": "python src/analyze_data.py --brand SL",
+    "start": "echo 'Choose a script: npm run run:price-update, npm run recommend:restock, npm run generate:promotions, npm run run:listing-creation, npm run validate:template, npm run analyze:data, etc. Remember to specify the brand using --brand [BRAND_NAME] if not using the default SL.'"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   },
   "keywords": [
     "amazon",

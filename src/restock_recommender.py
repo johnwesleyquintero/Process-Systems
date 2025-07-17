@@ -1,6 +1,8 @@
 import csv
 from datetime import datetime, timedelta
 from collections import defaultdict
+import argparse
+import os
 
 def parse_sales_data(sales_file_path):
     sales_velocity = defaultdict(lambda: {"total_quantity": 0, "days_sold": set()})
@@ -28,7 +30,6 @@ def parse_sales_data(sales_file_path):
                         sales_velocity[sku]["total_quantity"] += quantity
                         sales_velocity[sku]["days_sold"].add(sale_date.date())
                     except (ValueError, TypeError):
-                        # Handle cases where date format might be unexpected
                         continue
     except FileNotFoundError:
         print(f"Error: Sales file not found at {sales_file_path}")
@@ -43,6 +44,7 @@ def parse_inventory_data(inventory_file_path):
     try:
         with open(inventory_file_path, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f) # Assuming comma-separated for inventory
+            # print(f"Inventory file headers: {reader.fieldnames}") # Debug print headers
             for row in reader:
                 sku = row.get('sku') # Assuming 'sku' is the column name for SKU
                 # Assuming 'quantity available' or similar is the column for available inventory
@@ -128,17 +130,22 @@ def save_recommendations(recommendations, output_file_path):
         print(f"Error saving recommendations: {e}")
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Generate FBA restock recommendations for a specific brand.")
+    parser.add_argument('--brand', type=str, default='SL', help="The brand name (e.g., 'SL', 'STK').")
+    parser.add_argument('--lead_time', type=int, default=21, help="Average time from ordering to inventory being available at FBA in days.")
+    parser.add_argument('--safety_stock', type=int, default=10, help="Extra stock to buffer against delays or sales spikes in days of cover.")
+    parser.add_argument('--desired_cover', type=int, default=45, help="How many days of sales the new order should cover.")
+    args = parser.parse_args()
+
     # --- Configuration ---
-    # In a real-world scenario, these would likely come from a config file
-    # or be set on a per-SKU basis.
-    LEAD_TIME_DAYS = 21          # Average time from ordering to inventory being available at FBA
-    SAFETY_STOCK_DAYS = 10       # Extra stock to buffer against delays or sales spikes
-    DESIRED_DAYS_OF_COVER = 45   # How many days of sales the new order should cover
+    LEAD_TIME_DAYS = args.lead_time
+    SAFETY_STOCK_DAYS = args.safety_stock
+    DESIRED_DAYS_OF_COVER = args.desired_cover
 
     # --- File Paths ---
-    sales_file_path = "SECULIFE/reports/sales/sales.csv"
-    inventory_file_path = "SECULIFE/reports/inventory/inventory.csv"
-    recommendations_output_path = "SECULIFE/recommendations/restock_recommendations.csv"
+    sales_file_path = os.path.join('BRANDS', args.brand, 'reports', 'sales', 'sales.csv')
+    inventory_file_path = os.path.join('BRANDS', args.brand, 'reports', 'inventory', 'inventory.csv')
+    recommendations_output_path = os.path.join('BRANDS', args.brand, 'recommendations', 'restock_recommendations.csv')
 
     print(f"Analyzing sales data from: {sales_file_path}")
     sales_data = parse_sales_data(sales_file_path)

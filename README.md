@@ -23,17 +23,44 @@ The goal of this system is to improve our team's efficiency and accuracy, reduce
 *   **Price Update Automation:**
     *   **Input:** `excel_templates/price_update_template.csv` (SKU, Old Price, New Price, Start Date, End Date)
     *   **Script:** `src/price_update.py`
-    *   **Command:** `npm run run:price-update`
-    *   **Output:** `output/amazon_price_update_flatfile.csv`
+    *   **Command:** `npm run run:price-update -- --brand [BRAND_NAME]` (e.g., `npm run run:price-update -- --brand SL`)
+    *   **Output:** `BRANDS/[BRAND_NAME]/output/amazon_price_update_flatfile.csv`
 *   **FBA Restock Recommendations:**
     *   **Purpose:** Generates strategic FBA restock recommendations based on sales velocity, inventory levels, supplier lead times, and desired safety stock. This script helps prevent stockouts and minimize overstocking.
     *   **Inputs:**
-        *   `SECULIFE/reports/sales/sales.csv`: A tab-separated file containing historical sales data, including `sku`, `quantity`, and `purchase-date`.
-        *   `SECULIFE/reports/inventory/inventory.csv`: A comma-separated file containing current inventory levels, including `sku` and `available` quantities.
+        *   `BRANDS/[BRAND_NAME]/reports/sales/sales.csv`: A tab-separated file containing historical sales data, including `order-status`, `sku`, `quantity`, and `purchase-date`.
+        *   `BRANDS/[BRAND_NAME]/reports/inventory/inventory.csv`: A comma-separated file containing current inventory levels, including `sku` and `available` quantities.
     *   **Script:** `src/restock_recommender.py`
-    *   **Command:** `npm run recommend:restock`
-    *   **Output:** `SECULIFE/recommendations/restock_recommendations.csv`
+    *   **Command:** `npm run recommend:restock -- --brand [BRAND_NAME]` (e.g., `npm run recommend:restock -- --brand SL`)
+    *   **Output:** `BRANDS/[BRAND_NAME]/recommendations/restock_recommendations.csv`
     *   **Logic:** The script calculates a `Reorder Point` for each SKU using the formula: `(Daily Sales Velocity * Lead Time) + Safety Stock`. If current inventory is below this point, it calculates a `Recommended Order Quantity` to meet the `Desired Days of Cover`. Key parameters like `LEAD_TIME_DAYS`, `SAFETY_STOCK_DAYS`, and `DESIRED_DAYS_OF_COVER` are configurable directly within the script.
+*   **Promotional Discount Suggestions:**
+    *   **Purpose:** Generates suggested promotional discounts for Amazon listings based on product age and current status. This helps in managing inventory and boosting sales without altering the base retail price.
+    *   **Input:** `BRANDS/[BRAND_NAME]/all-listing-report.tsv` (current product listings)
+    *   **Script:** `src/generate_promotional_suggestions.py`
+    *   **Command:** `npm run generate:promotions -- --brand [BRAND_NAME]` (e.g., `npm run generate:promotions -- --brand SL`)
+    *   **Output:** `BRANDS/[BRAND_NAME]/output/promotional_discount_suggestions.csv`
+    *   **Logic:** The script identifies active products older than a configurable age threshold (default: 6 months) and calculates a `sale-price` by applying a configurable discount percentage (default: 15%). It also sets a `sale-start-date` (current date) and `sale-end-date` (configurable duration, default: 7 days).
+*   **Listing Creation Automation:**
+    *   **Purpose:** Automates the creation of Amazon-ready flat files for new product listings.
+    *   **Input:** `excel_templates/new_listing_template.csv` (a template for new product data)
+    *   **Script:** `src/listing_creation.py`
+    *   **Command:** `npm run run:listing-creation -- --brand [BRAND_NAME]` (e.g., `npm run run:listing-creation -- --brand SL`)
+    *   **Output:** `BRANDS/[BRAND_NAME]/output/amazon_new_listing_flatfile.csv`
+    *   **Logic:** Reads data from the input template and generates a flat file. (Note: This is a basic placeholder; a full implementation would involve extensive data mapping and validation against Amazon's specific flatfile requirements.)
+*   **Template Validation:**
+    *   **Purpose:** Validates the structure and required columns of various input templates used by the automation scripts.
+    *   **Input:** Specifies the template name (e.g., `price_update`, `new_listing`).
+    *   **Script:** `src/template_validator.py`
+    *   **Command:** `npm run validate:template -- --template [template_name] --brand [BRAND_NAME]` (e.g., `npm run validate:template -- --template price_update --brand SL`)
+    *   **Output:** Console output indicating validation success or failure, including missing columns.
+    *   **Logic:** Checks if the specified template file exists and contains all the necessary columns defined for that template.
+
+### Troubleshooting
+
+*   **FBA Restock Recommendations failing with "Could not generate recommendations due to missing data":**
+    *   **Cause:** The `src/restock_recommender.py` script requires the `BRANDS/[BRAND_NAME]/reports/sales/sales.csv` file to be tab-separated and contain specific columns (`order-status`, `sku`, `quantity`, `purchase-date`).
+    *   **Solution:** Ensure that the `sales.csv` file is properly formatted with tab separators and includes the required columns.
 
 ### Installation and Setup
 

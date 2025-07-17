@@ -1,12 +1,22 @@
 import csv
 from collections import defaultdict
+import argparse
+import os
 
-def analyze_tsv_data(file_path):
+def analyze_tsv_data(brand_name):
+    file_path = os.path.join('BRANDS', brand_name, 'all-listing-report.tsv')
     data = []
-    with open(file_path, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f, delimiter='\t')
-        for row in reader:
-            data.append(row)
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f, delimiter='\t')
+            for row in reader:
+                data.append(row)
+    except FileNotFoundError:
+        print(f"Error: Input file not found at {file_path}")
+        return None
+    except Exception as e:
+        print(f"An unexpected error occurred while reading the file: {e}")
+        return None
 
     if not data:
         return "No data found in the file."
@@ -71,7 +81,11 @@ def analyze_tsv_data(file_path):
     return insights
 
 if __name__ == "__main__":
-    file_to_analyze = "input_data.tsv"
-    analysis_results = analyze_tsv_data(file_to_analyze)
-    import json
-    print(json.dumps(analysis_results, indent=4))
+    parser = argparse.ArgumentParser(description="Analyze TSV data for a specific brand.")
+    parser.add_argument('--brand', type=str, default='SL', help="The brand name (e.g., 'SL', 'STK').")
+    args = parser.parse_args()
+
+    analysis_results = analyze_tsv_data(args.brand)
+    if analysis_results:
+        import json
+        print(json.dumps(analysis_results, indent=4))

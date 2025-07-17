@@ -1,10 +1,13 @@
 import pandas as pd
 import os
+import argparse
 
-def price_update_workflow(input_excel_path, output_dir="output"):
+def price_update_workflow(input_excel_path, brand_name):
     """
     Reads an Excel input, transforms it for Amazon price updates, and generates a flatfile.
     """
+    output_dir = os.path.join('BRANDS', brand_name, 'output')
+    os.makedirs(output_dir, exist_ok=True) # Ensure output directory exists
     try:
         # 1. Read Input
         df = pd.read_csv(input_excel_path)
@@ -82,8 +85,9 @@ def price_update_workflow(input_excel_path, output_dir="output"):
         print(f"An unexpected error occurred: {e}")
 
 if __name__ == "__main__":
-    # This script expects the input Excel file to be in the 'excel_templates' directory
-    # and outputs the flatfile to the 'output' directory.
-    # For a real application, you might pass these paths as command-line arguments.
+    parser = argparse.ArgumentParser(description="Generate Amazon price update flatfile.")
+    parser.add_argument('--brand', type=str, default='SL', help="The brand name (e.g., 'SL', 'STK').")
+    args = parser.parse_args()
+
     input_file = "excel_templates/price_update_template.csv"
-    price_update_workflow(input_file)
+    price_update_workflow(input_file, args.brand)

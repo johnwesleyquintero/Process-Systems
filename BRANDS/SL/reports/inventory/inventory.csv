@@ -1,0 +1,3 @@
+sku,available,fnsku,asin,product-name,condition-type,warehouse-condition-code,quantity-available,quantity-reserved,quantity-in-transit,editable
+SKU001,100,X001ABCDEF,B012345678,Product A,New,SELLABLE,100,0,0,
+SKU002,50,X001FEDCBA,B087654321,Product B,New,SELLABLE,50,0,0,

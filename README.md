@@ -25,6 +25,15 @@ The goal of this system is to improve our team's efficiency and accuracy, reduce
     *   **Script:** `src/price_update.py`
     *   **Command:** `npm run run:price-update`
     *   **Output:** `output/amazon_price_update_flatfile.csv`
+*   **FBA Restock Recommendations:**
+    *   **Purpose:** Generates strategic FBA restock recommendations based on sales velocity, inventory levels, supplier lead times, and desired safety stock. This script helps prevent stockouts and minimize overstocking.
+    *   **Inputs:**
+        *   `SECULIFE/reports/sales/sales.csv`: A tab-separated file containing historical sales data, including `sku`, `quantity`, and `purchase-date`.
+        *   `SECULIFE/reports/inventory/inventory.csv`: A comma-separated file containing current inventory levels, including `sku` and `available` quantities.
+    *   **Script:** `src/restock_recommender.py`
+    *   **Command:** `npm run recommend:restock`
+    *   **Output:** `SECULIFE/recommendations/restock_recommendations.csv`
+    *   **Logic:** The script calculates a `Reorder Point` for each SKU using the formula: `(Daily Sales Velocity * Lead Time) + Safety Stock`. If current inventory is below this point, it calculates a `Recommended Order Quantity` to meet the `Desired Days of Cover`. Key parameters like `LEAD_TIME_DAYS`, `SAFETY_STOCK_DAYS`, and `DESIRED_DAYS_OF_COVER` are configurable directly within the script.
 
 ### Installation and Setup
 

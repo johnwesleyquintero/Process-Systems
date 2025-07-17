@@ -4,9 +4,10 @@
   "description": "Automate Amazon flatfile tasks.",
   "scripts": {
     "run:price-update": "python src/price_update.py",
+    "recommend:restock": "python src/restock_recommender.py",
     "run:listing-creation": "python src/listing_creation.py",
     "validate:template": "python src/template_validator.py --template price_update",
-    "start": "echo 'Choose a script: npm run run:price-update, npm run run:listing-creation, etc.'"
+    "start": "echo 'Choose a script: npm run run:price-update, npm run recommend:restock, npm run run:listing-creation, etc.'"
   },
   "keywords": [
     "amazon",

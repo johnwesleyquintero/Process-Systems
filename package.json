@@ -11,7 +11,8 @@
     "analyze:data": "python src/analyze_data.py --brand SL",
     "forge:excel-template": "python src/forge_trojan_horse.py",
     "forge:sentiment-report": "python src/forge_sentiment_report.py",
-    "start": "echo 'Choose a script: npm run run:price-update, npm run recommend:restock, npm run generate:promotions, npm run run:listing-creation, npm run validate:template, npm run analyze:data, etc. Remember to specify the brand using --brand [BRAND_NAME] if not using the default SL.'"
+    "forge:calculator": "python src/forge_calculator.py",
+    "start": "echo 'Choose a script: npm run run:price-update, npm run recommend:restock, npm run generate:promotions, npm run run:listing-creation, npm run validate:template, npm run analyze:data, forge:calculator, etc. Remember to specify the brand using --brand [BRAND_NAME] if not using the default SL.'"
   },
   "devDependencies": {
     "cross-env": "^7.0.3"

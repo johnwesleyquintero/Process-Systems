@@ -1,3 +1,0 @@
-sku,avg_daily_sales,current_inventory,days_of_supply,reorder_point,recommended_order_quantity,recommendation
-SKU002,3.0,50,16.67,93.0,85,Stock below reorder point (93 units). Recommend ordering.
-SKU001,3.5,100,28.57,108.5,57,Stock below reorder point (108 units). Recommend ordering.

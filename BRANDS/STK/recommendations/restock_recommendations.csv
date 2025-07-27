@@ -1,4 +1,0 @@
-sku,avg_daily_sales,current_inventory,days_of_supply,reorder_point,recommended_order_quantity,recommendation
-FBA-SL-GL3+Case-AT3M,1.0,0,0.0,31.0,45,Stock below reorder point (31 units). Recommend ordering.
-FBA-SL-24MEK-BLK,3.15,55,17.44,97.77,86,Stock below reorder point (97 units). Recommend ordering.
-FBA-SL-KDBLU25,1.73,48,27.79,53.55,29,Stock below reorder point (53 units). Recommend ordering.

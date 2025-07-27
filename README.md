@@ -27,13 +27,42 @@ This repository contains two primary types of systems: **Flatfile Generators** f
 
 ### Flatfile Generation Suite
 
-*(This section contains the existing scripts for generating Amazon-ready flat files.)*
+This suite of scripts generates Amazon-ready flat files for direct upload, streamlining common operational tasks.
 
-*   **Price Update Automation:** ... *(logic remains the same)*
-*   **FBA Restock Recommendations:** ... *(logic remains the same)*
-*   **Promotional Discount Suggestions:** ... *(logic remains the same)*
-*   **Listing Creation Automation:** ... *(logic remains the same)*
-*   **Template Validation:** ... *(logic remains the same)*
+*   **Price Update Automation**
+    *   **Purpose:** Automates the generation of Amazon price update flat files, ensuring quick and accurate price adjustments across your listings.
+    *   **Script:** `src/price_update.py`
+    *   **Command:** `npm run run:price-update -- --brand [BRAND_NAME]`
+    *   **Output:** `BRANDS/[BRAND_NAME]/output/amazon_price_update_flatfile.csv`
+    *   **Template Usage:** Prepare your price updates in `excel_templates/price_update_template.csv`.
+
+*   **FBA Restock Recommendations**
+    *   **Purpose:** Generates precise FBA restock recommendations by analyzing your inventory and sales data, helping you maintain optimal stock levels and avoid stockouts.
+    *   **Script:** `src/restock_recommender.py`
+    *   **Command:** `npm run recommend:restock -- --brand [BRAND_NAME]`
+    *   **Output:** `BRANDS/[BRAND_NAME]/recommendations/restock_recommendations.csv`
+    *   **Template Usage:** Ensure your FBA Inventory and Business Report data are updated in `BRANDS/[BRAND_NAME]/reports/inventory/inventory.csv` and `BRANDS/[BRAND_NAME]/reports/sales/sales.csv` respectively.
+
+*   **Promotional Discount Suggestions**
+    *   **Purpose:** Provides data-driven suggestions for promotional discounts, helping you strategize effective sales campaigns to boost product visibility and sales.
+    *   **Script:** `src/generate_promotional_suggestions.py`
+    *   **Command:** `npm run generate:promotions -- --brand [BRAND_NAME]`
+    *   **Output:** `BRANDS/[BRAND_NAME]/output/promotional_discount_suggestions.csv`
+    *   **Template Usage:** Requires up-to-date sales data for analysis.
+
+*   **Listing Creation Automation**
+    *   **Purpose:** Automates the creation of new Amazon listings, simplifying the process of adding new products to your catalog and ensuring all required fields are correctly populated.
+    *   **Script:** `src/listing_creation.py`
+    *   **Command:** `npm run run:listing-creation -- --brand [BRAND_NAME]`
+    *   **Output:** `BRANDS/[BRAND_NAME]/output/amazon_new_listing_flatfile.csv`
+    *   **Template Usage:** Fill out the `excel_templates/new_listing_template.csv` with your new listing details.
+
+*   **Template Validation**
+    *   **Purpose:** Validates input templates (e.g., price update, new listing) against Amazon's requirements, preventing errors before flat file generation and upload.
+    *   **Script:** `src/template_validator.py`
+    *   **Command:** `npm run validate:template -- --template [TEMPLATE_NAME] --brand [BRAND_NAME]`
+    *   **Output:** Validation results are displayed in the console, indicating any discrepancies or errors.
+    *   **Template Usage:** Specify the template to validate (e.g., `price_update` or `new_listing`).
 
 ---
 
@@ -69,4 +98,4 @@ This suite of scripts doesn't generate flat files; it forges powerful, intellige
     *   **Output:** `excel_templates/Surgical_Strike_Calculator_v1.0.xlsx`
     *   **Template Usage:** Input the product's price, costs, fees, and a proposed discount percentage. The calculator will instantly display the final profit per unit and a "LOSING MONEY!" warning if applicable.
 
-*(...The rest of the `README.md` for Troubleshooting, Installation, etc., remains the same...)*
+---

@@ -9,6 +9,8 @@
     "run:listing-creation": "python src/listing_creation.py --brand SL",
     "validate:template": "python src/template_validator.py --template price_update --brand SL",
     "analyze:data": "python src/analyze_data.py --brand SL",
+    "forge:excel-template": "python src/forge_trojan_horse.py",
+    "forge:sentiment-report": "python src/forge_sentiment_report.py",
     "start": "echo 'Choose a script: npm run run:price-update, npm run recommend:restock, npm run generate:promotions, npm run run:listing-creation, npm run validate:template, npm run analyze:data, etc. Remember to specify the brand using --brand [BRAND_NAME] if not using the default SL.'"
   },
   "devDependencies": {

@@ -12,6 +12,7 @@
     "forge:excel-template": "python src/forge_trojan_horse.py",
     "forge:sentiment-report": "python src/forge_sentiment_report.py",
     "forge:calculator": "python src/forge_calculator.py",
+    "forge:restock-report": "python src/forge_restock_report.py",
     "start": "echo 'Choose a script: npm run run:price-update, npm run recommend:restock, npm run generate:promotions, npm run run:listing-creation, npm run validate:template, npm run analyze:data, forge:calculator, etc. Remember to specify the brand using --brand [BRAND_NAME] if not using the default SL.'"
   },
   "devDependencies": {
